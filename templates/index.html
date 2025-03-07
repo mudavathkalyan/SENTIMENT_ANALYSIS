@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analysis</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Background Gradient */
+        body {
+            background: linear-gradient(to right, #1e3c72, #3d5b8f);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            color: #fff;
+        }
+
+        /* Glassmorphism Card */
+        .container {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 90%;
+        }
+
+        h1 {
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* Stylish Textarea */
+        .form-control {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            border: none;
+        }
+
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Button Styling */
+        .btn-primary {
+            width: 100%;
+            padding: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            background-color: #3d78b8;
+            border: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        /* Alert Styles */
+        .alert {
+            text-align: center;
+            font-size: 18px;
+            border-radius: 8px;
+        }
+
+        .alert-success {
+            background: rgba(40, 167, 69, 0.2);
+            color: #28a745;
+            border-color: rgba(40, 167, 69, 0.3);
+        }
+
+        .alert-danger {
+            background: rgba(220, 53, 69, 0.2);
+            color: #dc3545;
+            border-color: rgba(220, 53, 69, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="mb-4">Sentiment Analysis</h1>
+        <h3>Movie-review</h3>
+        <form method="POST" action="{{ url_for('predict') }}">
+            <div class="form-group">
+                <label for="comment">Enter your Review:</label>
+                <textarea class="form-control" id="comment" name="comment" rows="3" placeholder="Type your review here..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Analyze</button>
+        </form>
+
+        {% if prediction is defined %}
+            <div class="mt-4">
+                {% if prediction == 1 %}
+                    <div class="alert alert-success" role="alert">😊 Positive comment!</div>
+                {% else %}
+                    <div class="alert alert-danger" role="alert">😔 Negative comment!</div>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>
